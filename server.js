@@ -26,8 +26,9 @@ var server = http.createServer(function (request, response) {
   response.statusCode = 200;
   //默认首页为index.html
   const filePath = path==='/'?'/index.html':path;
-  const index = filePath.lastIndexOf('.');
-  const suffix = filePath.substring(index);
+  const index = filePath.lastIndexOf('.'); //返回最后一次出现‘.’的索引
+  //suffix是后缀
+  const suffix = filePath.substring(index); //返回子字符串
   const fileTypes = {
       '.html': 'text/html',
       '.css':'text/css',
