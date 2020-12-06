@@ -25,24 +25,28 @@ var server = http.createServer(function (request, response) {
 
   response.statusCode = 200;
   //默认首页为index.html
-  const filePath = path==='/'?'/index.html':path;
-  const index = filePath.lastIndexOf('.'); //返回最后一次出现‘.’的索引
+  const filePath = path === "/" ? "/index.html" : path;
+  const index = filePath.lastIndexOf("."); //返回最后一次出现‘.’的索引
   //suffix是后缀
   const suffix = filePath.substring(index); //返回子字符串
+  //哈希表
   const fileTypes = {
-      '.html': 'text/html',
-      '.css':'text/css',
-      '.js':'text/javascript',
-      '.png':'image/png',
-      '.jpg':'image/jpeg'
-  }
-  response.setHeader("Content-Type", `${fileTypes[suffix] || 'text/html'};charset=utf-8`);
+    ".html": "text/html",
+    ".css": "text/css",
+    ".js": "text/javascript",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+  };
+  response.setHeader(
+    "Content-Type",
+    `${fileTypes[suffix] || "text/html"};charset=utf-8`
+  );
   let content;
-  try{
-      content = fs.readFileSync(`./public${filePath}`)
-  }catch(error){
-      content = '文件不存在'
-      response.statusCode = 404
+  try {
+    content = fs.readFileSync(`./public${filePath}`);
+  } catch (error) {
+    content = "文件不存在";
+    response.statusCode = 404;
   }
   response.write(content);
   response.end();
